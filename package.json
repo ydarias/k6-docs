@@ -63,7 +63,7 @@
     "react-cookie-banner": "^4.0.0",
     "react-dom": "^16.10.2",
     "react-helmet": "^6.1.0",
-    "react-instantsearch-dom": "^6.2.0",
+    "react-instantsearch-dom": "^6.8.1",
     "react-sticky": "^6.0.3",
     "yarn": "^1.22.10"
   },
