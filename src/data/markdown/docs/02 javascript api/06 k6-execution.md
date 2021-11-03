@@ -74,6 +74,13 @@ Meta information and execution details about the current vu and iteration.
 | iterationInScenario | integer | The identifier of the iteration in the current scenario. |
 | idInInstance        | integer | The identifier of the VU across the instance. |
 | idInTest            | integer | The globally unique (across the whole test run) identifier of the VU. |
+| tags                | object  | The map that gives control over VU's Tags. The Tags will be included in every metric emitted by the VU and the Tags' state is maintained across different iterations until the VU exists. |
+
+> ℹ️ Set Tag
+>
+> Set a Tag with the same key as a [SystemTag](docs/using-k6/options#system-tags) is allowed but it requires attention to avoid unexpected results. Typically, an enabled SystemTag will overwrite any duplicate of the same key that has been set before, except for the `name` SystemTag, which doesn't overwrite the same key already set for supporting the [URL Grouping](https://k6.io/docs/using-k6/http-requests/#url-grouping) feature.
+>
+> Not all the types are accepted for a Set operation: it supports String, Number and Boolean types. Under the hood, the `tags` object handles a Tag as a String pair of key and value, so all the types will be implicitly converted into a String. If one of the denied types is used (e.g. Object or Array) and the `--throw` option is set then an exception is raised otherwise just a warning is printed and the Set operation is discarded.
 
 ## Examples and use cases
 
@@ -131,6 +138,24 @@ export default function () {
   } else {
     // do some other logic in the others
   }
+}
+```
+
+</CodeGroup>
+
+### Tags
+The `vu.tags` property can be used for getting or setting VU's tags.
+
+<CodeGroup labels={["tags-control.js"]} lineNumbers={[true]}>
+
+```javascript
+import exec from 'k6/execution';
+
+export default function () {
+  exec.vu.tags['mytag'] = 'value1';
+  exec.vu.tags['mytag2'] = 2;
+  console.log(exec.vu.tags['mytag']) // "value1"
+  console.log(exec.vu.tags['mytag2']) // "2"
 }
 ```
 
