@@ -74,7 +74,7 @@ Meta information and execution details about the current vu and iteration.
 | iterationInScenario | integer | The identifier of the iteration in the current scenario. |
 | idInInstance        | integer | The identifier of the VU across the instance. |
 | idInTest            | integer | The globally unique (across the whole test run) identifier of the VU. |
-| tags                | object  | The map that gives control over VU's Tags. The Tags will be included in every metric emitted by the VU and the Tags' state is maintained across different iterations while the VU exists. |
+| tags                | object  | The map that gives control over VU's Tags. The Tags will be included in every metric emitted by the VU and the Tags' state is maintained across different iterations of the same Scenario while the VU exists. |
 
 > ℹ️ Set Tag
 >
