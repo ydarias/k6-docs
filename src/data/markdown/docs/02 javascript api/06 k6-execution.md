@@ -74,13 +74,13 @@ Meta information and execution details about the current vu and iteration.
 | iterationInScenario | integer | The identifier of the iteration in the current scenario. |
 | idInInstance        | integer | The identifier of the VU across the instance. |
 | idInTest            | integer | The globally unique (across the whole test run) identifier of the VU. |
-| tags                | object  | The map that gives control over VU's Tags. The Tags will be included in every metric emitted by the VU and the Tags' state is maintained across different iterations until the VU exists. |
+| tags                | object  | The map that gives control over VU's Tags. The Tags will be included in every metric emitted by the VU and the Tags' state is maintained across different iterations while the VU exists. |
 
 > ℹ️ Set Tag
 >
-> Set a Tag with the same key as a [SystemTag](docs/using-k6/options#system-tags) is allowed but it requires attention to avoid unexpected results. Typically, an enabled SystemTag will overwrite any duplicate of the same key that has been set before, except for the `name` SystemTag, which doesn't overwrite the same key already set for supporting the [URL Grouping](https://k6.io/docs/using-k6/http-requests/#url-grouping) feature.
+> Set a Tag with the same key as a [SystemTag](docs/using-k6/options#system-tags) is allowed but it requires attention to avoid unexpected results. Overwriting SystemTags will not throw an error, but in most cases will not actually change the value of the emitted metrics as expected. For example, overwriting `url` will not result in a changed value when `http.get` is called as it will set its own value, but it will add the tag `url` to the metric emitted by a `check()` or `metric.add()`. This is not true for the `name` tag and `http.*` methods as that is already supported for the purposes of the [URL Grouping](https://k6.io/docs/using-k6/http-requests/#url-grouping) feature.
 >
-> Not all the types are accepted for a Set operation: it supports String, Number and Boolean types. Under the hood, the `tags` object handles a Tag as a String pair of key and value, so all the types will be implicitly converted into a String. If one of the denied types is used (e.g. Object or Array) and the `--throw` option is set then an exception is raised otherwise just a warning is printed and the Set operation is discarded.
+> Not all the types are accepted for a Set operation: it supports String, Number and Boolean types. Under the hood, the `tags` object handles a Tag as a String pair of key and value, so all the types will be implicitly converted into a String. If one of the denied types is used (e.g. Object or Array) and the `--throw` option is set then an exception is thrown otherwise just a warning is printed and the Set operation is discarded.
 
 ## Examples and use cases
 
